@@ -1,8 +1,8 @@
 import pandas as pd
 
 #Импорт файлов формата csv
-report = pd.read_csv('vat_report.csv')
-invoices = pd.read_csv('invoices.csv')
+report = pd.read_csv('initial data/vat_report.csv')
+invoices = pd.read_csv('initial data/invoices.csv')
 #Преобразуем дату в нужный формат
 invoices["Период"] = pd.to_datetime(invoices["Дата ЭСФ"]).dt.strftime("%Y%m").astype(str).astype(int)
 #Группируем таблицу и суммируем повторяющиеся элементы
@@ -32,4 +32,4 @@ q = q[['Период', 'ИНН', 'Сумма расхождений по НДС'
 #Объеденяем две таблицы
 result = pd.concat([q, z], axis=0, sort=True, ignore_index=True).astype('Int64')
 #Выводим результат в файл expected_test.csv
-result.fillna(0).sort_values(by=['Период', 'ИНН']).to_csv('expected_test.csv', index=False)
+result.fillna(0).sort_values(by=['Период', 'ИНН']).to_csv('actual csv/expected.csv', index=False)
